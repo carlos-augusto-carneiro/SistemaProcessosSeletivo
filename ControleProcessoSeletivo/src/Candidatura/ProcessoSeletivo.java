@@ -1,12 +1,48 @@
 package Candidatura;
 
 import java.util.Iterator;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ProcessoSeletivo {
 	 
 	public static void main(String[] args) {
-		imprimirSelecionados();
+		String [] candidatos = {"HERNANDO", "MARIA", "ADRIANA", "CARLOS", "ELOAN"};
+		
+		for(String candidato: candidatos) {
+			entrandoEmContato(candidato);
+		}
+	}
+	
+	static void entrandoEmContato(String candidato) {
+		int tentativasRealizadas = 1;
+		boolean continuarTentando = true;
+		boolean atendeu = true;
+		
+		do {
+			atendeu= atender();
+			continuarTentando = !atendeu;
+			
+			if (continuarTentando) {
+				tentativasRealizadas++;
+			}
+			else {
+				System.out.println("CONTATO REALIZADO COM SUCESSO");
+			}
+			
+		} while (continuarTentando && tentativasRealizadas<3);
+		
+		if (atendeu) {
+			System.out.println("CONSEGUIMOS CONTATO COM " + candidato + " NA " + tentativasRealizadas);
+		}
+		else {
+			System.out.println("NÃO CONSEGUIMOS CONTATO COM " + candidato + ", NÚMERO MAXIMO DE VEZES LIGADAS " + tentativasRealizadas +" REALIZADAS");
+		}
+		
+	}
+	
+	static boolean atender() {
+		return new Random().nextInt(3)==1;
 	}
 	
 	static void imprimirSelecionados() {
@@ -15,7 +51,7 @@ public class ProcessoSeletivo {
 		System.out.println("Imprimindo a lista de candidatos informando o indice do elemento");
 		
 		for (int indice = 0; indice < candidatos.length; indice++) {
-			System.out.println("O candidato de nº " + (indice+1) + candidatos[indice]);
+			System.out.println("O candidato de nº" + (indice+1) + candidatos[indice]);
 		}
 		
 		System.out.println("Forma abreviada de intereção for each");
